@@ -12,8 +12,8 @@ export default function Login({ validation, authentication }: any) {
 
   const router = useRouter();
 
-  async function onSubmit(credentials: Credentials) {
-    authentication.signIn(credentials)
+  async function onSubmit(params: Credentials) {
+    authentication.signIn(params)
       .then(() => {
         router.push('/')
       })
