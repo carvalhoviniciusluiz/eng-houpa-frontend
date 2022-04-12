@@ -1,17 +1,28 @@
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { UserModel } from '~/app/domain/models';
 import { Link, PasswordField, TextField } from '~/app/presentation/components';
 
-export default function Login({ validation }: any) {
-  const { control, handleSubmit, formState } = useForm<UserModel>(validation);
+type Credentials = {
+  email: string;
+  password: string;
+}
 
-  function onSubmit(user: UserModel) {
-    console.log(user)
+export default function Login({ validation, authentication }: any) {
+  const { control, handleSubmit, formState } = useForm<Credentials>(validation);
+
+  const router = useRouter();
+
+  async function onSubmit(credentials: Credentials) {
+    authentication.auth(credentials)
+      .then(() => {
+        router.push('/')
+      })
+      .catch(console.error)
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField control={control} name="name" />
+      <TextField control={control} name="email" />
       <PasswordField control={control} name="password" />
 
       <button disabled={formState.isSubmitting}>

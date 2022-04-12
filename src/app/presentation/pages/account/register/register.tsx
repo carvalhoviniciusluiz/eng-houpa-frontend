@@ -12,6 +12,7 @@ export default function Register({ validation }: any) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField control={control} name="name" />
+      <TextField control={control} name="email" />
       <PasswordField control={control} name="password" />
 
       <button disabled={formState.isSubmitting}>
