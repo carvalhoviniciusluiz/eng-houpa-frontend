@@ -1,12 +1,24 @@
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { UserModel } from '~/app/domain/models';
 import { Link, PasswordField, TextField } from '~/app/presentation/components';
 
-export default function Register({ validation }: any) {
-  const { control, handleSubmit, formState } = useForm<UserModel>(validation);
+type Register = {
+  name: string;
+  email: string;
+  password: string;
+}
 
-  function onSubmit(user: UserModel) {
-    console.log(user)
+export default function Register({ validation, register }: any) {
+  const { control, handleSubmit, formState } = useForm<Register>(validation);
+
+  const router = useRouter();
+
+  function onSubmit(params: Register) {
+    register.signUp(params)
+      .then(() => {
+        router.push('/account/login')
+      })
+      .catch(console.error)
   }
 
   return (
