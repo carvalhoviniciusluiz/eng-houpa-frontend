@@ -1,4 +1,4 @@
-import { HttpPostClient, HttpStatusCode } from "~/app/applicaiton/protocols/http"
+import { HttpPostClient, HttpStatusCode } from "~/app/application/protocols/http"
 import { UnexpectedError } from "~/app/domain/errors"
 import { Register } from "~/app/domain/usecases"
 

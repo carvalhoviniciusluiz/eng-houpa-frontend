@@ -1,4 +1,4 @@
-import { SetStorage } from "~/app/applicaiton/protocols/cache"
+import { SetStorage } from "~/app/application/protocols/cache"
 import { Authentication } from "~/app/domain/usecases"
 
 export class AuthenticationDecorator implements Authentication {
@@ -7,8 +7,8 @@ export class AuthenticationDecorator implements Authentication {
     private readonly remoteAuthentication: Authentication
   ) { }
 
-  async auth(params: Authentication.Params): Promise<Authentication.Response> {
-    const httpResponse = await this.remoteAuthentication.auth(params)
+  async signIn(params: Authentication.Params): Promise<Authentication.Response> {
+    const httpResponse = await this.remoteAuthentication.signIn(params)
     this.setStorage.set('houpa-sales:account', httpResponse)
     return httpResponse
   }

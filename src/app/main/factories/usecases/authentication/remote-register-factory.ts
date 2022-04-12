@@ -1,4 +1,4 @@
-import { RemoteRegister } from "~/app/applicaiton/usecases"
+import { RemoteRegister } from "~/app/application/usecases"
 import { Register } from "~/app/domain/usecases"
 import { makeApiUrl, makeAxiosHttpClient } from "~/app/main/factories/http"
 

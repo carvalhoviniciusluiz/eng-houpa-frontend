@@ -1,4 +1,4 @@
-import { GetStorage, SetStorage } from "~/app/applicaiton/protocols/cache"
+import { GetStorage, SetStorage } from "~/app/application/protocols/cache"
 
 export class LocalStorageAdapter implements SetStorage, GetStorage {
   set(key: string, value: object): void {

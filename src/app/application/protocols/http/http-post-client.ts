@@ -1,4 +1,4 @@
-import { HttpResponse } from '~/app/applicaiton/protocols/http'
+import { HttpResponse } from '~/app/application/protocols/http'
 
 export type HttpPostParams<BodyType = any> = {
   url: string

@@ -1,4 +1,4 @@
-import { HttpPostClient } from "~/app/applicaiton/protocols/http"
+import { HttpPostClient } from "~/app/application/protocols/http"
 import { AxiosHttpClient } from "~/app/infra/axios-http-client"
 
 export const makeAxiosHttpClient = (): HttpPostClient => {
