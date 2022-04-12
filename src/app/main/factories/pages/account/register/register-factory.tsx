@@ -1,5 +1,5 @@
+import { makeRemoteRegister } from "~/app/main/factories/usecases"
 import { Register } from "~/app/presentation/pages"
-import { makeRemoteRegister } from "../../usecases"
 import { makeRegisterValidation } from "./register-validation-factory"
 
 
