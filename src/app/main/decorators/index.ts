@@ -1,1 +1,2 @@
-export * from './authentication-decorator';
+export * from './authorize-http-get-client-decorator';
+export * from './remote-authentication-decorator';

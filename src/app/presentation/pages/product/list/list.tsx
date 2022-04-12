@@ -1,11 +1,32 @@
-export default function ProductList({ list }: any) {
+import { useEffect, useState } from "react"
+import { LoadProductList } from "~/app/domain/usecases"
+
+export default function ProductList({ loadProductList }: any) {
+  const [state, setState] = useState({
+    products: [] as LoadProductList.Response[]
+  })
+
+  useEffect(() => {
+    loadProductList
+      .loadAll()
+      .then((products: LoadProductList.Response[]) => setState((prevState) => ({
+        ...prevState,
+        products
+      })))
+      .catch(console.error)
+  }, []) // eslint-disable-line
+
   return (
     <ul>
-      <li>product 01</li>
-      <li>product 02</li>
-      <li>product 03</li>
-      <li>product 04</li>
-      <li>product 05</li>
+      {state.products.map(product => (
+        <li key={product.id}>
+          <div>
+            {product.name} <br />
+            Current User Name <br />
+            {product.ref}
+          </div>
+        </li>
+      ))}
     </ul>
   )
 }

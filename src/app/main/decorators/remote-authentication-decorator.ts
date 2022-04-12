@@ -1,7 +1,7 @@
 import { SetStorage } from "~/app/application/protocols/cache"
 import { Authentication } from "~/app/domain/usecases"
 
-export class AuthenticationDecorator implements Authentication {
+export class RemoteAuthenticationDecorator implements Authentication {
   constructor(
     private readonly setStorage: SetStorage,
     private readonly remoteAuthentication: Authentication
