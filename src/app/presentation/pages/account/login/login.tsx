@@ -13,7 +13,7 @@ export default function Login({ validation, authentication }: any) {
   const router = useRouter();
 
   async function onSubmit(credentials: Credentials) {
-    authentication.auth(credentials)
+    authentication.signIn(credentials)
       .then(() => {
         router.push('/')
       })

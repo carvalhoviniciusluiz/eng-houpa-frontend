@@ -1,6 +1,6 @@
 
 export interface Authentication {
-  auth: (params: Authentication.Params) => Promise<Authentication.Response>
+  signIn: (params: Authentication.Params) => Promise<Authentication.Response>
 }
 
 export namespace Authentication {
