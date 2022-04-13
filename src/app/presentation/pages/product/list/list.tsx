@@ -4,13 +4,13 @@ import { Link } from "~/app/presentation/components"
 
 export default function ProductList({ loadProducts }: any) {
   const [state, setState] = useState({
-    products: [] as LoadProducts.Response[]
+    products: [] as LoadProducts.ProductResponse[]
   })
 
   useEffect(() => {
     loadProducts
       .loadAll()
-      .then((products: LoadProducts.Response[]) => setState((prevState) => ({
+      .then(({ data: products }: LoadProducts.Response) => setState((prevState) => ({
         ...prevState,
         products
       })))
