@@ -1,8 +1,8 @@
-export interface LoadProductList {
-  loadAll: () => Promise<LoadProductList.Response[]>
+export interface LoadProducts {
+  loadAll: () => Promise<LoadProducts.Response[]>
 }
 
-export namespace LoadProductList {
+export namespace LoadProducts {
   export type Response = {
     id: string;
     name: string;

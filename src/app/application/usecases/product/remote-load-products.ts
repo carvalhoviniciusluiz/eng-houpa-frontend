@@ -1,18 +1,18 @@
 import { AccessDeniedError, UnexpectedError } from "~/app/domain/errors"
-import { LoadProductList } from "~/app/domain/usecases"
+import { LoadProducts } from "~/app/domain/usecases"
 import { HttpGetClient, HttpStatusCode } from "../../protocols/http"
 
-export class RemoteLoadProductList implements LoadProductList {
+export class RemoteLoadProducts implements LoadProducts {
   constructor(
     private readonly url: string,
-    private readonly httpGetClient: HttpGetClient<RemoteLoadProductList.Response[]>
+    private readonly httpGetClient: HttpGetClient<RemoteLoadProducts.Response[]>
   ) { }
 
-  async loadAll(): Promise<RemoteLoadProductList.Response[]> {
+  async loadAll(): Promise<RemoteLoadProducts.Response[]> {
     const httpResponse = await this.httpGetClient.get({ url: this.url })
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
-        return httpResponse.body as RemoteLoadProductList.Response[]
+        return httpResponse.body as RemoteLoadProducts.Response[]
       case HttpStatusCode.unauthorized:
       case HttpStatusCode.forbidden:
         throw new AccessDeniedError()
@@ -24,6 +24,6 @@ export class RemoteLoadProductList implements LoadProductList {
   }
 }
 
-export namespace RemoteLoadProductList {
-  export type Response = LoadProductList.Response
+export namespace RemoteLoadProducts {
+  export type Response = LoadProducts.Response
 }

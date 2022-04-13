@@ -1,3 +1,3 @@
 export * from './authentication';
-export * from './load-product-list';
+export * from './load-products';
 export * from './register';

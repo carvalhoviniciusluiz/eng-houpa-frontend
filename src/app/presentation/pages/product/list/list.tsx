@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
-import { LoadProductList } from "~/app/domain/usecases"
+import { LoadProducts } from "~/app/domain/usecases"
 
-export default function ProductList({ loadProductList }: any) {
+export default function ProductList({ loadProducts }: any) {
   const [state, setState] = useState({
-    products: [] as LoadProductList.Response[]
+    products: [] as LoadProducts.Response[]
   })
 
   useEffect(() => {
-    loadProductList
+    loadProducts
       .loadAll()
-      .then((products: LoadProductList.Response[]) => setState((prevState) => ({
+      .then((products: LoadProducts.Response[]) => setState((prevState) => ({
         ...prevState,
         products
       })))
