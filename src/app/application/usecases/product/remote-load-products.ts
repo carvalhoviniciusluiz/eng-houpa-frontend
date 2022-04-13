@@ -1,6 +1,6 @@
+import { HttpGetClient, HttpStatusCode } from "~/app/application/protocols/http"
 import { AccessDeniedError, UnexpectedError } from "~/app/domain/errors"
 import { LoadProducts } from "~/app/domain/usecases"
-import { HttpGetClient, HttpStatusCode } from "../../protocols/http"
 
 export class RemoteLoadProducts implements LoadProducts {
   constructor(

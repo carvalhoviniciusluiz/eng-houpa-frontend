@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { TextField } from '~/app/presentation/components';
 
@@ -8,11 +9,17 @@ type ProductForm = {
   price: number;
 }
 
-export default function ProductForm({ validation }: any) {
+export default function ProductForm({ validation, addProduct }: any) {
   const { control, handleSubmit, formState } = useForm<ProductForm>(validation);
 
-  function onSubmit(params: ProductForm) {
-    console.log(params)
+  const router = useRouter();
+
+  async function onSubmit(params: ProductForm) {
+    addProduct.add(params)
+      .then(() => {
+        router.push('/products')
+      })
+      .catch(console.error)
   }
 
   return (
