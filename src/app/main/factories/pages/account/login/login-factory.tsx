@@ -1,6 +1,6 @@
 import { makeRemoteAuthenticationDecorator } from "~/app/main/factories/decorators";
+import { makeLoginValidation } from "~/app/main/factories/pages";
 import { Login } from "~/app/presentation/pages";
-import { makeLoginValidation } from "./login-validation-factory";
 
 export const makeLogin = () => {
   return (
