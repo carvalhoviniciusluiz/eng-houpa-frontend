@@ -1,13 +1,13 @@
-import { makeProductFormValidation } from "~/app/main/factories/pages"
-import { ProductForm } from "~/app/presentation/pages"
+import { makeNewProductFormValidation } from "~/app/main/factories/pages"
+import { NewProductForm } from "~/app/presentation/pages"
 import { makeRemoteAddProduct } from "../../../usecases"
 
 
-export const makeProductForm = () => {
+export const makeNewProductForm = () => {
   return (
-    <ProductForm
+    <NewProductForm
       addProduct={makeRemoteAddProduct()}
-      validation={makeProductFormValidation()}
+      validation={makeNewProductFormValidation()}
     />
   )
 }

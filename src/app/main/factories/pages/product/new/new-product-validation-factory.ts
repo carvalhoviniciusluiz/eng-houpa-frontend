@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-export const makeProductFormValidation = () => {
+export const makeNewProductFormValidation = () => {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .required('Name is required'),

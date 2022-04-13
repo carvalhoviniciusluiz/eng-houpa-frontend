@@ -1,5 +1,5 @@
-import { makeProductForm } from "~/app/main/factories/pages";
+import { makeNewProductForm } from "~/app/main/factories/pages";
 
-export default function ProductFormPage() {
-  return makeProductForm()
+export default function NewProductFormPage() {
+  return makeNewProductForm()
 }

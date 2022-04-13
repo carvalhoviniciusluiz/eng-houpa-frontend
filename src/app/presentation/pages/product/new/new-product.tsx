@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { TextField } from '~/app/presentation/components';
+import { Link, TextField } from '~/app/presentation/components';
 
 type ProductForm = {
   name: string;
@@ -9,7 +9,7 @@ type ProductForm = {
   price: number;
 }
 
-export default function ProductForm({ validation, addProduct }: any) {
+export default function NewProductForm({ validation, addProduct }: any) {
   const { control, handleSubmit, formState } = useForm<ProductForm>(validation);
 
   const router = useRouter();
@@ -33,6 +33,7 @@ export default function ProductForm({ validation, addProduct }: any) {
         {formState.isSubmitting && <span />}
         Salvar produto
       </button>
+      <Link href="/products">Cancel</Link>
     </form>
   );
 }
