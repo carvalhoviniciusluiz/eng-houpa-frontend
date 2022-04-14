@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import { DebounceInput } from "react-debounce-input"
 import { LoadProducts } from "~/app/domain/usecases"
 import { Link } from "~/app/presentation/components"
 
@@ -27,8 +28,22 @@ export default function ProductList({ loadProducts, deleteProduct }: any) {
     handleRehydrateProducts(newProducts)
   }
 
+  async function handleSearchByName(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target
+    const hasValue = !!value
+
+    if (hasValue) {
+      console.log('Search by: ', value)
+    }
+  }
+
   return (
     <>
+      <DebounceInput
+        minLength={3}
+        debounceTimeout={1000}
+        onChange={handleSearchByName} />
+
       <Link href="/products/new">Cadastrar produto</Link>
       <ul>
         {state.products.map(product => (
