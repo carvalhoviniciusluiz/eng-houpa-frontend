@@ -1,4 +1,3 @@
-
 export interface Authentication {
   signIn: (params: Authentication.Params) => Promise<Authentication.Response>
 }

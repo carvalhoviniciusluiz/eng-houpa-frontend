@@ -1,7 +1,7 @@
 import { Authentication } from "~/app/domain/usecases"
 import { RemoteAuthenticationDecorator } from "~/app/main/decorators"
 import { makeLocalStorageAdapter } from "~/app/main/factories/cache"
-import { makeRemoteAuthentication } from "../usecases"
+import { makeRemoteAuthentication } from "~/app/main/factories/usecases"
 
 export const makeRemoteAuthenticationDecorator = (): Authentication => {
   return new RemoteAuthenticationDecorator(

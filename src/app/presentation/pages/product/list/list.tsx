@@ -25,8 +25,11 @@ export default function ProductList({ loadProducts }: any) {
           <li key={product.id}>
             <div>
               {product.name} <br />
-              Current User Name <br />
+              {product.user.name} <br />
               {product.ref}
+            </div>
+            <div>
+              <Link href={`/products/edit/${product.id}`}>Editar</Link>
             </div>
           </li>
         ))}

@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { GetProduct } from '~/app/domain/usecases';
 import { Link, TextField } from '~/app/presentation/components';
 
 type ProductForm = {
@@ -9,13 +11,33 @@ type ProductForm = {
   price: number;
 }
 
-export default function NewProductForm({ validation, addProduct }: any) {
-  const { control, handleSubmit, formState } = useForm<ProductForm>(validation);
+export default function EditProductForm({
+  validation,
+  getProduct,
+  editProduct,
+  productId
+}: any) {
+  const { control, handleSubmit, formState, setValue } = useForm<ProductForm>(validation);
 
   const router = useRouter();
 
+  useEffect(() => {
+    getProduct
+      .get()
+      .then((product: GetProduct.Response) => {
+        setValue('name', product.name)
+        setValue('description', product.description)
+        setValue('ref', product.ref)
+        setValue('price', product.price)
+      })
+      .catch(console.error)
+  }, []) // eslint-disable-line
+
   async function onSubmit(params: ProductForm) {
-    addProduct.add(params)
+    editProduct.edit({
+      id: productId,
+      ...params
+    })
       .then(() => {
         router.push('/products')
       })
@@ -31,7 +53,7 @@ export default function NewProductForm({ validation, addProduct }: any) {
 
       <button disabled={formState.isSubmitting}>
         {formState.isSubmitting && <span />}
-        Salvar produto
+        Editar produto
       </button>
       <Link href="/products">Cancelar</Link>
     </form>

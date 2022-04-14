@@ -1,4 +1,3 @@
-
 export interface Register {
   signUp: (params: Register.Params) => Promise<Register.Response>
 }
