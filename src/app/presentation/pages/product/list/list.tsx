@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { DebounceInput } from "react-debounce-input"
-import { LoadProducts } from "~/app/domain/usecases"
+import { DeleteProduct, LoadProducts } from "~/app/domain/usecases"
 import { Link } from "~/app/presentation/components"
 
-export default function ProductList({ loadProducts, deleteProduct }: any) {
+type ProductListProps = {
+  loadProducts: LoadProducts;
+  deleteProduct: DeleteProduct;
+}
+
+export default function ProductList({ loadProducts, deleteProduct }: ProductListProps) {
   const [state, setState] = useState({
     products: [] as LoadProducts.ProductResponse[]
   })

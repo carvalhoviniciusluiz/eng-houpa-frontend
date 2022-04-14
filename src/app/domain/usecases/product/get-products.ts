@@ -1,5 +1,5 @@
 export interface GetProduct {
-  get: (id: string) => Promise<GetProduct.Response[]>
+  get: (id: string) => Promise<GetProduct.Response>
 }
 
 export namespace GetProduct {

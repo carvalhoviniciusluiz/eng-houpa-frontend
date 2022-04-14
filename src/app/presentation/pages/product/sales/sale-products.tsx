@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react"
-import { LoadProducts } from "~/app/domain/usecases"
+import { useEffect, useState } from "react";
+import { LoadProducts } from "~/app/domain/usecases";
 
-export default function SaleProducts({ loadProducts }: any) {
+type SaleProductsProps = {
+  loadProducts: LoadProducts;
+}
+
+export default function SaleProducts({ loadProducts }: SaleProductsProps) {
   const [state, setState] = useState({
     products: [] as LoadProducts.ProductResponse[]
   })

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { GetProduct } from '~/app/domain/usecases';
+import { EditProduct, GetProduct } from '~/app/domain/usecases';
 import { Link, TextField } from '~/app/presentation/components';
 
 type ProductForm = {
@@ -11,12 +11,19 @@ type ProductForm = {
   price: number;
 }
 
+type EditProductFormParams = {
+  validation: any;
+  getProduct: GetProduct;
+  editProduct: EditProduct;
+  productId: string;
+}
+
 export default function EditProductForm({
   validation,
   getProduct,
   editProduct,
   productId
-}: any) {
+}: EditProductFormParams) {
   const { control, handleSubmit, formState, setValue } = useForm<ProductForm>(validation);
 
   const router = useRouter();

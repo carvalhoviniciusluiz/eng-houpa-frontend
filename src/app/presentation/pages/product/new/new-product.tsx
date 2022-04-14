@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { AddProduct } from '~/app/domain/usecases';
 import { Link, TextField } from '~/app/presentation/components';
 
 type ProductForm = {
@@ -9,7 +10,12 @@ type ProductForm = {
   price: number;
 }
 
-export default function NewProductForm({ validation, addProduct }: any) {
+type NewProductFormProps = {
+  validation: any;
+  addProduct: AddProduct;
+}
+
+export default function NewProductForm({ validation, addProduct }: NewProductFormProps) {
   const { control, handleSubmit, formState } = useForm<ProductForm>(validation);
 
   const router = useRouter();

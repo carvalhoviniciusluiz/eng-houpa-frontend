@@ -1,5 +1,5 @@
 export interface LoadProducts {
-  loadAll: () => Promise<LoadProducts.Response[]>
+  loadAll: () => Promise<LoadProducts.Response>
 }
 
 export namespace LoadProducts {
