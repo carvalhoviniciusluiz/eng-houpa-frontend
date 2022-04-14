@@ -1,3 +1,4 @@
+export * from './authorize-http-delete-client-decorator-factory';
 export * from './authorize-http-get-client-decorator-factory';
 export * from './authorize-http-patch-client-decorator-factory';
 export * from './authorize-http-post-client-decorator-factory';

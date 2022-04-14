@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { LoadProducts } from "~/app/domain/usecases"
 import { Link } from "~/app/presentation/components"
 
-export default function ProductList({ loadProducts }: any) {
+export default function ProductList({ loadProducts, deleteProduct }: any) {
   const [state, setState] = useState({
     products: [] as LoadProducts.ProductResponse[]
   })
@@ -10,12 +10,22 @@ export default function ProductList({ loadProducts }: any) {
   useEffect(() => {
     loadProducts
       .loadAll()
-      .then(({ data: products }: LoadProducts.Response) => setState((prevState) => ({
-        ...prevState,
-        products
-      })))
+      .then(({ data }: LoadProducts.Response) => handleRehydrateProducts(data))
       .catch(console.error)
   }, []) // eslint-disable-line
+
+  function handleRehydrateProducts(products: LoadProducts.ProductResponse[]) {
+    setState((prevState) => ({
+      ...prevState,
+      products
+    }))
+  }
+
+  async function handleDestroy(productId: string) {
+    await deleteProduct.delete(productId)
+    const newProducts = state.products.filter(product => product.id !== productId)
+    handleRehydrateProducts(newProducts)
+  }
 
   return (
     <>
@@ -29,7 +39,8 @@ export default function ProductList({ loadProducts }: any) {
               {product.ref}
             </div>
             <div>
-              <Link href={`/products/edit/${product.id}`}>Editar</Link>
+              <Link href={`/products/edit/${product.id}`}>Editar</Link><br />
+              <button onClick={() => handleDestroy(product.id)}>Apagar</button>
             </div>
           </li>
         ))}

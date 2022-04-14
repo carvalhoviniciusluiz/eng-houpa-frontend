@@ -2,26 +2,24 @@ export interface LoadProducts {
   loadAll: () => Promise<LoadProducts.Response[]>
 }
 
-type ProductRow = {
-  id: string;
-  name: string;
-  description: string;
-  ref: string;
-  price: number;
-  updatedAt: string;
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    updatedAt: string;
-  }
-}
-
 export namespace LoadProducts {
-  export type ProductResponse = ProductRow
+  export type ProductResponse = {
+    id: string;
+    name: string;
+    description: string;
+    ref: string;
+    price: number;
+    updatedAt: string;
+    user: {
+      id: string;
+      email: string;
+      name: string;
+      updatedAt: string;
+    }
+  }
 
   export type Response = {
-    data: ProductRow[],
+    data: ProductResponse[],
     meta: {
       count: number;
       firstItemOnPage: number;

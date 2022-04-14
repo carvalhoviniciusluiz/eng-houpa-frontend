@@ -1,3 +1,4 @@
+export * from './authorize-http-delete-client-decorator';
 export * from './authorize-http-get-client-decorator';
 export * from './authorize-http-patch-client-decorator';
 export * from './authorize-http-post-client-decorator';
