@@ -1,8 +1,12 @@
 export interface LoadProducts {
-  loadAll: () => Promise<LoadProducts.Response>
+  loadAll: (params?: LoadProducts.Params) => Promise<LoadProducts.Response>
 }
 
 export namespace LoadProducts {
+  export type Params = {
+    name?: string
+  }
+
   export type ProductResponse = {
     id: string;
     name: string;

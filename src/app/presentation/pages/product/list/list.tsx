@@ -14,32 +14,28 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
   })
 
   useEffect(() => {
-    loadProducts
-      .loadAll()
-      .then(({ data }: LoadProducts.Response) => handleRehydrateProducts(data))
-      .catch(console.error)
+    handleRehydrateProducts()
   }, []) // eslint-disable-line
 
-  function handleRehydrateProducts(products: LoadProducts.ProductResponse[]) {
-    setState((prevState) => ({
-      ...prevState,
-      products
-    }))
+  function handleRehydrateProducts(name?: string) {
+    loadProducts
+      .loadAll({ name })
+      .then(({ data: products }: LoadProducts.Response) => setState((prevState) => ({
+        ...prevState,
+        products
+      })))
+      .catch(console.error)
   }
 
   async function handleDestroy(productId: string) {
     await deleteProduct.delete(productId)
     const newProducts = state.products.filter(product => product.id !== productId)
-    handleRehydrateProducts(newProducts)
+    handleRehydrateProducts()
   }
 
   async function handleSearchByName(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target
-    const hasValue = !!value
-
-    if (hasValue) {
-      console.log('Search by: ', value)
-    }
+    handleRehydrateProducts(value)
   }
 
   return (

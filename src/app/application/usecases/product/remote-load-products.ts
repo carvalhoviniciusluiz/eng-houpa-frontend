@@ -8,8 +8,8 @@ export class RemoteLoadProducts implements LoadProducts {
     private readonly httpGetClient: HttpGetClient<RemoteLoadProducts.Response>
   ) { }
 
-  async loadAll(): Promise<RemoteLoadProducts.Response> {
-    const httpResponse = await this.httpGetClient.get({ url: this.url })
+  async loadAll(params?: LoadProducts.Params): Promise<RemoteLoadProducts.Response> {
+    const httpResponse = await this.httpGetClient.get({ url: this.url, params })
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
         return httpResponse.body as RemoteLoadProducts.Response
