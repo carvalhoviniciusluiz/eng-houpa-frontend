@@ -23,7 +23,7 @@ export default function EditProductForm({
 
   useEffect(() => {
     getProduct
-      .get()
+      .get(productId)
       .then((product: GetProduct.Response) => {
         setValue('name', product.name)
         setValue('description', product.description)
@@ -34,10 +34,7 @@ export default function EditProductForm({
   }, []) // eslint-disable-line
 
   async function onSubmit(params: ProductForm) {
-    editProduct.edit({
-      id: productId,
-      ...params
-    })
+    editProduct.edit(productId, params)
       .then(() => {
         router.push('/products')
       })

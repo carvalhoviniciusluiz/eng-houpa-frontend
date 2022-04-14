@@ -8,8 +8,10 @@ export class RemoteGetProduct implements GetProduct {
     private readonly httpGetClient: HttpGetClient<RemoteGetProduct.Response[]>
   ) { }
 
-  async get(): Promise<RemoteGetProduct.Response[]> {
-    const httpResponse = await this.httpGetClient.get({ url: this.url })
+  async get(id: string): Promise<RemoteGetProduct.Response[]> {
+    const httpResponse = await this.httpGetClient.get({
+      url: `${this.url}/${id}`
+    })
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
         return httpResponse.body as RemoteGetProduct.Response[]

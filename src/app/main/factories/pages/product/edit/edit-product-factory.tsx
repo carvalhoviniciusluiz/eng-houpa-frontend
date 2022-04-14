@@ -6,8 +6,8 @@ export const makeEditProductForm = (productId: string) => {
   return (
     <EditProductForm
       productId={productId}
-      getProduct={makeRemoteGetProduct(productId)}
-      editProduct={makeRemoteEditProduct(productId)}
+      getProduct={makeRemoteGetProduct()}
+      editProduct={makeRemoteEditProduct()}
       validation={makeEditProductFormValidation()}
     />
   )

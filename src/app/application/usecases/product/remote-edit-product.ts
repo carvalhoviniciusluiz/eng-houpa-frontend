@@ -11,9 +11,9 @@ export class RemoteEditProduct implements EditProduct {
     >
   ) { }
 
-  async edit(params: RemoteEditProduct.Params): Promise<RemoteEditProduct.Response> {
+  async edit(id: string, params: RemoteEditProduct.Params): Promise<RemoteEditProduct.Response> {
     const httpResponse = await this.httpPatchClient.patch({
-      url: this.url,
+      url: `${this.url}/${id}`,
       body: params
     })
     switch (httpResponse.statusCode) {
