@@ -1,25 +1,31 @@
-import { Controller } from 'react-hook-form'
+import { IconButton } from '@mui/material'
+import { useState } from 'react'
+import {
+  FaEye as VisibilityIcon,
+  FaEyeSlash as VisibilityOffIcon
+} from 'react-icons/fa'
+import { TextField, TextFieldProps } from './text-field'
 
-export const PasswordField = ({ name, control }: any) => {
+export const PasswordField = (input: TextFieldProps) => {
+  const [inputType, setInputType] = useState<'password' | 'text'>('password')
+
+  const togglePasswordInput = () => {
+    inputType === 'password' ? setInputType('text') : setInputType('password')
+  }
+
   return (
-    <Controller
-      name={name}
-      control={control}
-      defaultValue=''
-      render={({ field, fieldState: { error, invalid } }) => {
-        const errorMessage = error?.message
-        return (
-          <div>
-            <label>{name}</label>
-            <input
-              type="password"
-              {...field}
-              className={`${invalid ? 'is-invalid' : ''}`}
-            />
-            <div className="invalid-feedback">
-              {errorMessage}
-            </div>
-          </div>
+    <TextField
+      type={inputType}
+      {...input}
+      InputProps={{
+        endAdornment: (
+          <IconButton onClick={togglePasswordInput}>
+            {inputType === 'password' ? (
+              <VisibilityIcon />
+            ) : (
+              <VisibilityOffIcon />
+            )}
+          </IconButton>
         )
       }}
     />

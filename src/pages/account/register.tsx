@@ -1,5 +1,10 @@
 import { makeRegister } from "~/app/main/factories/pages";
+import { DefaultLayout } from "~/app/presentation/layouts";
 
 export default function RegisterPage() {
-  return makeRegister()
+  return (
+    <DefaultLayout>
+      {makeRegister()}
+    </DefaultLayout>
+  )
 }
