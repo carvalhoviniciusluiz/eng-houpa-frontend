@@ -100,7 +100,7 @@ export default function Login({ validation, authentication }: LoginProps) {
         </Typography>
         <Link
           style={{
-            marginTop: 8,
+            margin: '8px 0',
             fontSize: 16
           }}
           href="/account/register"

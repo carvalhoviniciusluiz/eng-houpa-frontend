@@ -61,7 +61,7 @@ export default function Register({ validation, register }: RegisterProps) {
             marginTop: 8
           }}
           label="Digite seu e-mail"
-          name="name"
+          name="email"
           control={control}
         />
       </Box>

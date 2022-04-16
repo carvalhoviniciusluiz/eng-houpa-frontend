@@ -11,7 +11,7 @@ export const makeRegisterValidation = () => {
     password: Yup.string()
       .required('Password is required')
       .min(8, 'Password must be at least 8 characters')
-      .max(20, 'Email must be at max 20 characters')
+      .max(20, 'Password must be at max 20 characters')
   });
   const formOptions = { resolver: yupResolver(validationSchema) };
 
