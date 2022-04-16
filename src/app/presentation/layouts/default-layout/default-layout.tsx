@@ -1,6 +1,6 @@
-import { AppBar, Box, Toolbar } from '@mui/material';
-import Image from 'next/image';
+import { Box } from '@mui/material';
 import React from 'react';
+import { Toolbar } from '~/app/presentation/layouts/components';
 
 type DefaultLayoutProps = {
   children: React.ReactNode
@@ -9,37 +9,11 @@ type DefaultLayoutProps = {
 export default function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
     <Box>
-      <AppBar position="static" elevation={0}>
-        <Toolbar
-          style={{
-            minHeight: 44,
-            backgroundColor: '#450887'
-          }}
-        />
-      </AppBar>
-      <AppBar
-        component="div"
-        position="static"
-        elevation={0}
-      >
-        <Toolbar style={{
-          minHeight: 78,
-          backgroundColor: '#5F12B6',
-          justifyContent: 'center'
-        }}>
-          <Image
-            width={36.41}
-            height={39.31}
-            src="/img/logo.svg"
-            alt="logo"
-          />
-        </Toolbar>
-      </AppBar>
+      <Toolbar />
 
       <Box style={{
         display: 'flex',
-        justifyContent: 'center',
-        minHeight: 'calc(100vh + -122px)'
+        justifyContent: 'center'
       }} >
         <Box
           style={{

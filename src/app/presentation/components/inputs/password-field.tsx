@@ -1,9 +1,9 @@
 import { IconButton } from '@mui/material'
 import { useState } from 'react'
 import {
-  FaEye as VisibilityIcon,
-  FaEyeSlash as VisibilityOffIcon
-} from 'react-icons/fa'
+  MdVisibility as VisibilityIcon,
+  MdVisibilityOff as VisibilityOffIcon
+} from 'react-icons/md'
 import { TextField, TextFieldProps } from './text-field'
 
 export const PasswordField = (input: TextFieldProps) => {

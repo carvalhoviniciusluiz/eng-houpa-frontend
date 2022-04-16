@@ -1,7 +1,9 @@
+import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { AddProduct } from '~/app/domain/usecases';
-import { Link, TextField } from '~/app/presentation/components';
+import { BarAction, Breadcrumbs, Link, TextField } from '~/app/presentation/components';
 
 type ProductForm = {
   name: string;
@@ -29,17 +31,51 @@ export default function NewProductForm({ validation, addProduct }: NewProductFor
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField control={control} name="name" />
-      <TextField control={control} name="description" />
-      <TextField control={control} name="ref" />
-      <TextField control={control} name="price" />
+    <>
+      <BarAction>
+        <Box>
+          <Breadcrumbs>
+            <Typography>Vitrines</Typography>
+          </Breadcrumbs>
 
-      <button disabled={formState.isSubmitting}>
-        {formState.isSubmitting && <span />}
-        Salvar produto
-      </button>
-      <Link href="/products">Cancelar</Link>
-    </form>
+          <Box
+            style={{
+              marginTop: 28,
+              display: "flex",
+              alignItems: "center"
+            }}
+          >
+            <Image
+              width={23.16}
+              height={24.41}
+              src="/img/store.svg"
+              alt="image"
+            />
+
+            <Typography
+              style={{
+                fontSize: 24,
+                marginLeft: 12
+              }}
+            >
+              Vitrines
+            </Typography>
+          </Box>
+        </Box>
+      </BarAction>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField control={control} name="name" />
+        <TextField control={control} name="description" />
+        <TextField control={control} name="ref" />
+        <TextField control={control} name="price" />
+
+        <button disabled={formState.isSubmitting}>
+          {formState.isSubmitting && <span />}
+          Salvar produto
+        </button>
+        <Link href="/products">Cancelar</Link>
+      </form>
+    </>
   );
 }

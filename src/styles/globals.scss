@@ -8,16 +8,12 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+* {
+  color: #222222;
+  box-sizing: border-box;
+}
+
 a {
   color: #3F0B6D;
   text-decoration: 'inline';
-}
-
-h1,
-label {
-  color: #222222;
-}
-
-* {
-  box-sizing: border-box;
 }
