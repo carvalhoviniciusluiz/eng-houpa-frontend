@@ -14,6 +14,7 @@ __IMPORTANTE__ existe uma demo publicada no heroku [clicar aqui](https://houpa-s
         - [Instalação](#install)
         - [Rodando o Projeto](#run)
         - [Projeto Endpoints](#endpoints)
+        - [Credenticial de Acesso](#credentials)
 
 ## Configurações <a name="configs"></a>
 
@@ -127,6 +128,19 @@ __NOTA__: caso tenha dúvidas veja a sessão `Configurações > Dotenv` & `Confi
 *   `#GET /products` - Tela de produtos do usuário logado.
 *   `#GET /products/edit/{id}` - Tela de edição de produto.
 *   `#GET /products/new` - Tela para cadastrar novos produtos.
+
+### **Credenticial de Acesso:** <a name="credentials"></a>
+
+__IMPORTANTE__: Para facilitar o primeiro acesso está disponível a conta de usuário válido abaixo:
+
+Dados de acesso:
+
+| Param | Value
+|---------|--------------
+| Email | carvalho.viniciusluiz@gmail.com
+| PASSWORD | 123Ch@nge
+
+__OBS__ Caso não queira a conta padrão, use a tela de cadastro de usuários para registrar uma conta nova.
 
 ## License
 
