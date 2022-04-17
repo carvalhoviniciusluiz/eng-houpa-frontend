@@ -75,7 +75,6 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
           </Box>
         </Box>
 
-
         <Link
           style={{
             color: "white",

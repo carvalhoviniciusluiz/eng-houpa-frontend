@@ -4,11 +4,17 @@ import { Control, Controller } from 'react-hook-form';
 export type FieldProps = {
   name: string
   control: Control<any>
+  variant?: string
 }
 
 export type TextFieldProps = TextFieldPropsMui & FieldProps
 
-export const TextField = ({ name, control, ...props }: TextFieldProps) => {
+export const TextField = ({
+  name,
+  control,
+  variant = "filled",
+  ...props
+}: TextFieldProps) => {
   return (
     <Controller
       name={name}
@@ -22,7 +28,7 @@ export const TextField = ({ name, control, ...props }: TextFieldProps) => {
             fullWidth
             error={invalid}
             helperText={invalid ? error?.message : ''}
-            variant="filled"
+            variant={variant}
           />
         )
       }}

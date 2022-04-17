@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { EditProduct, GetProduct } from '~/app/domain/usecases';
-import { BarAction, Breadcrumbs, Link, TextField } from '~/app/presentation/components';
+import { BarAction, Breadcrumbs } from '~/app/presentation/components';
+import { FormProduct } from '~/app/presentation/pages/product/components';
 
 type ProductForm = {
   name: string;
@@ -84,18 +85,12 @@ export default function EditProductForm({
         </Box>
       </BarAction>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField control={control} name="name" />
-        <TextField control={control} name="description" />
-        <TextField control={control} name="ref" />
-        <TextField control={control} name="price" />
-
-        <button disabled={formState.isSubmitting}>
-          {formState.isSubmitting && <span />}
-          Editar produto
-        </button>
-        <Link href="/products">Cancelar</Link>
-      </form>
+      <FormProduct
+        title="Editar Produto"
+        isSubmitting={formState.isSubmitting}
+        handleSubmit={handleSubmit(onSubmit)}
+        control={control}
+      />
     </>
   );
 }

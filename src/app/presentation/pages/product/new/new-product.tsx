@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { AddProduct } from '~/app/domain/usecases';
-import { BarAction, Breadcrumbs, Link, TextField } from '~/app/presentation/components';
+import { BarAction, Breadcrumbs } from '~/app/presentation/components';
+import { FormProduct } from '~/app/presentation/pages/product/components';
 
 type ProductForm = {
   name: string;
@@ -48,7 +49,7 @@ export default function NewProductForm({ validation, addProduct }: NewProductFor
             <Image
               width={23.16}
               height={24.41}
-              src="/img/store.svg"
+              src="/img/shirt.svg"
               alt="image"
             />
 
@@ -58,24 +59,18 @@ export default function NewProductForm({ validation, addProduct }: NewProductFor
                 marginLeft: 12
               }}
             >
-              Vitrines
+              Cadastrar Produto
             </Typography>
           </Box>
         </Box>
       </BarAction>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField control={control} name="name" />
-        <TextField control={control} name="description" />
-        <TextField control={control} name="ref" />
-        <TextField control={control} name="price" />
-
-        <button disabled={formState.isSubmitting}>
-          {formState.isSubmitting && <span />}
-          Salvar produto
-        </button>
-        <Link href="/products">Cancelar</Link>
-      </form>
+      <FormProduct
+        title="Cadastro de Produto"
+        isSubmitting={formState.isSubmitting}
+        handleSubmit={handleSubmit(onSubmit)}
+        control={control}
+      />
     </>
   );
 }
