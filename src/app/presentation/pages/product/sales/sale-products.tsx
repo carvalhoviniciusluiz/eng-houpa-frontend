@@ -21,9 +21,19 @@ export default function SaleProducts({ loadProducts }: SaleProductsProps) {
   function handleRehydrateProducts(name?: string) {
     loadProducts
       .loadAll({ name })
-      .then(({ data: products }: LoadProducts.Response) => setState((prevState) => ({
+      .then(({ data }: LoadProducts.Response) => setState((prevState) => ({
         ...prevState,
-        products
+        products: data?.map(product => ({
+          ...product,
+          priceFormated: (() => {
+            return new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL'
+            })
+              .format(product?.price || 0)
+          })(),
+          cover: product?.pictures[0]
+        }))
       })))
       .catch(console.error)
   }
@@ -71,21 +81,115 @@ export default function SaleProducts({ loadProducts }: SaleProductsProps) {
 
       <Box
         style={{
-          margin: "0 80px 0 77.59px"
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center"
         }}
       >
-        <DebounceInput
-          minLength={3}
-          debounceTimeout={1000}
-          onChange={handleSearchByName} />
+        <Box
+          style={{
+            display: "flex",
+            height: 44,
+            width: 415.95,
+            borderRadius: 5,
+            border: "1px solid #E9E9E9",
+            margin: "40px 0"
+          }}
+        >
+          <Box
+            style={{
+              padding: 12
+            }}
+          >
+            <Image
+              width={16}
+              height={16}
+              src="/img/search.svg"
+              alt="icon"
+            />
+          </Box>
+          <DebounceInput
+            style={{
+              width: "100%",
+              height: "100%",
+              border: 0,
+              borderRadius: 5
+            }}
+            debounceTimeout={1000}
+            onChange={handleSearchByName}
+            placeholder="Pesquisar por nome do produto"
+          />
+        </Box>
 
-        <ul>
+        <ul
+          style={{
+            listStyleType: "none",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gridGap: 17
+          }}
+        >
           {state.products.map(product => (
-            <li key={product.id}>
-              <div>
-                {product.name} <br />
-                {product.price}
-              </div>
+            <li
+              key={product.id}
+            >
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}
+                className="showcase"
+              >
+                <Box>
+                  <Image
+                    width={308}
+                    height={371}
+                    src={product.cover?.imagePath || "/img/dress.svg"}
+                    alt="picture"
+                  />
+                </Box>
+
+                <Box
+                  style={{
+                    display: "flex",
+                    alignItems: "center"
+                  }}
+                >
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Typography
+                      style={{
+                        marginTop: 16,
+                        fontSize: 16,
+                        letterSpacing: 0.2,
+                        textTransform: "uppercase",
+                        textAlign: "center"
+                      }}
+                      component="h1"
+                    >
+                      {product.name}
+                    </Typography>
+                    <Typography
+                      style={{
+                        fontSize: 16,
+                        marginTop: 15,
+                        color: '#3F0B6D',
+                        textAlign: "center",
+                        letterSpacing: 0.2
+                      }}
+                    >
+                      {product.priceFormated}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
             </li>
           ))}
         </ul>

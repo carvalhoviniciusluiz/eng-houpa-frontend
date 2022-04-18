@@ -27,10 +27,11 @@ export namespace LoadProducts {
       name: string;
       updatedAt: string;
     }
-    pictures: LoadProducts.Picture[]
+    pictures: LoadProducts.Picture[];
 
     // virtual
-    cover?: LoadProducts.Picture
+    cover?: LoadProducts.Picture;
+    priceFormated?: string;
   }
 
   export type Response = {

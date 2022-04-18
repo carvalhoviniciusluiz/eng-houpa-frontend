@@ -115,7 +115,7 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
             width: 415.95,
             borderRadius: 5,
             border: "1px solid #E9E9E9",
-            margin: "40px 0"
+            margin: "40px 0 24px"
           }}
         >
           <Box
@@ -145,6 +145,7 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
 
         <ul
           style={{
+            margin: 0,
             listStyleType: "none"
           }}
         >
@@ -155,7 +156,8 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
                 justifyContent: "space-between",
                 width: 613,
                 border: "1px solid #E9E9E9",
-                borderRadius: 6
+                borderRadius: 6,
+                marginTop: 16
               }}
               key={product.id}
             >
