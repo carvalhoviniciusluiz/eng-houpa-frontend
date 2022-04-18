@@ -17,3 +17,11 @@ a {
   color: #3F0B6D;
   text-decoration: 'inline';
 }
+
+li+li {
+  margin-top: 16px;
+}
+
+input:focus-visible {
+  outline: none;
+}

@@ -3,6 +3,13 @@ export interface LoadProducts {
 }
 
 export namespace LoadProducts {
+  export type Picture = {
+    id: string;
+    imagePath: string;
+    cover: string;
+    createdAt: string;
+  }
+
   export type Params = {
     name?: string
   }
@@ -20,6 +27,10 @@ export namespace LoadProducts {
       name: string;
       updatedAt: string;
     }
+    pictures: LoadProducts.Picture[]
+
+    // virtual
+    cover?: LoadProducts.Picture
   }
 
   export type Response = {

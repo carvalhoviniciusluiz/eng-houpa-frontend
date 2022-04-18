@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { DebounceInput } from "react-debounce-input"
+import { MdClose as Close } from 'react-icons/md'
 import { DeleteProduct, LoadProducts } from "~/app/domain/usecases"
 import { BarAction, Breadcrumbs, Link } from "~/app/presentation/components"
 
@@ -22,16 +23,19 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
   function handleRehydrateProducts(name?: string) {
     loadProducts
       .loadAll({ name })
-      .then(({ data: products }: LoadProducts.Response) => setState((prevState) => ({
+      .then(({ data }: LoadProducts.Response) => setState((prevState) => ({
         ...prevState,
-        products
+        products: data?.map(product => ({
+          ...product,
+          cover: product?.pictures.find(picture => picture.cover)
+        }))
       })))
       .catch(console.error)
   }
 
   async function handleDestroy(productId: string) {
     await deleteProduct.delete(productId)
-    const newProducts = state.products.filter(product => product.id !== productId)
+    state.products.filter(product => product.id !== productId)
     handleRehydrateProducts()
   }
 
@@ -98,26 +102,127 @@ export default function ProductList({ loadProducts, deleteProduct }: ProductList
 
       <Box
         style={{
-          margin: "0 80px 0 77.59px"
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center"
         }}
       >
-        <DebounceInput
-          minLength={3}
-          debounceTimeout={1000}
-          onChange={handleSearchByName} />
+        <Box
+          style={{
+            display: "flex",
+            height: 44,
+            width: 415.95,
+            borderRadius: 5,
+            border: "1px solid #E9E9E9",
+            margin: "40px 0"
+          }}
+        >
+          <Box
+            style={{
+              padding: 12
+            }}
+          >
+            <Image
+              width={16}
+              height={16}
+              src="/img/search.svg"
+              alt="icon"
+            />
+          </Box>
+          <DebounceInput
+            style={{
+              width: "100%",
+              height: "100%",
+              border: 0,
+              borderRadius: 5
+            }}
+            debounceTimeout={1000}
+            onChange={handleSearchByName}
+            placeholder="Pesquisar por nome do produto"
+          />
+        </Box>
 
-        <ul>
+        <ul
+          style={{
+            listStyleType: "none"
+          }}
+        >
           {state.products.map(product => (
-            <li key={product.id}>
-              <div>
-                {product.name} <br />
-                {product.user.name} <br />
-                {product.ref}
-              </div>
-              <div>
-                <Link href={`/products/edit/${product.id}`}>Editar</Link><br />
-                <button onClick={() => handleDestroy(product.id)}>Apagar</button>
-              </div>
+            <li
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: 613,
+                border: "1px solid #E9E9E9",
+                borderRadius: 6
+              }}
+              key={product.id}
+            >
+              <Box
+                style={{
+                  display: "flex"
+                }}
+              >
+                <Box
+                  style={{
+                    margin: "9px 27px 9px 30px",
+                    border: "1px solid #C8C8C8"
+                  }}
+                >
+                  <Image
+                    width={35.82}
+                    height={46.57}
+                    src={product.cover?.imagePath || "/img/dress.svg"}
+                    alt="picture"
+                  />
+                </Box>
+
+                <Box
+                  style={{
+                    display: "flex",
+                    alignItems: "center"
+                  }}
+                >
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "column"
+                    }}
+                  >
+                    <Typography component="h1" fontSize={14}>{product.name}</Typography>
+                    <Typography fontSize={10}>{product.user.name}</Typography>
+                    <Typography fontSize={10}>{product.ref}</Typography>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Box
+                style={{
+                  display: "flex",
+                  alignItems: "center"
+                }}
+              >
+                <Link href={`/products/edit/${product.id}`}>
+                  <Image
+                    width={24}
+                    height={21}
+                    src="/img/edit.svg"
+                    alt="action"
+                  />
+                </Link>
+                <button
+                  style={{
+                    margin: "0 30px",
+                    border: 0,
+                    background: "transparent",
+                    cursor: "pointer"
+                  }}
+                  onClick={() => handleDestroy(product.id)}
+                >
+                  <Close fill="#C8C8C8" size={32} />
+                </button>
+              </Box>
             </li>
           ))}
         </ul>
