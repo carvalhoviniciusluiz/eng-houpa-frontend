@@ -12,6 +12,8 @@ import {
 } from '~/app/application/protocols/http'
 
 export class AxiosHttpClient implements HttpGetClient, HttpPostClient, HttpPatchClient, HttpDeleteClient {
+  constructor() { }
+
   async get(params: HttpGetParams): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse
     try {
