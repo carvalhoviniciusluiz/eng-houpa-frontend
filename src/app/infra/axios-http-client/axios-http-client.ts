@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 import {
   HttpDeleteClient,
   HttpDeleteParams,
@@ -12,12 +12,12 @@ import {
 } from '~/app/application/protocols/http'
 
 export class AxiosHttpClient implements HttpGetClient, HttpPostClient, HttpPatchClient, HttpDeleteClient {
-  constructor() { }
+  constructor(private readonly axiosInstance: AxiosInstance) { }
 
   async get(params: HttpGetParams): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse
     try {
-      axiosResponse = await axios.get(params.url, {
+      axiosResponse = await this.axiosInstance.get(params.url, {
         headers: params.headers,
         params: params.params
       })
@@ -30,7 +30,7 @@ export class AxiosHttpClient implements HttpGetClient, HttpPostClient, HttpPatch
   async post(params: HttpPostParams): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse
     try {
-      axiosResponse = await axios.post(params.url, params.body, {
+      axiosResponse = await this.axiosInstance.post(params.url, params.body, {
         headers: params.headers
       })
     } catch (error: any) {
@@ -42,7 +42,7 @@ export class AxiosHttpClient implements HttpGetClient, HttpPostClient, HttpPatch
   async patch(params: HttpPatchParams): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse
     try {
-      axiosResponse = await axios.patch(params.url, params.body, {
+      axiosResponse = await this.axiosInstance.patch(params.url, params.body, {
         headers: params.headers
       })
     } catch (error: any) {
@@ -54,7 +54,7 @@ export class AxiosHttpClient implements HttpGetClient, HttpPostClient, HttpPatch
   async delete(params: HttpDeleteParams): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse
     try {
-      axiosResponse = await axios.delete(params.url, {
+      axiosResponse = await this.axiosInstance.delete(params.url, {
         headers: params.headers
       })
     } catch (error: any) {
