@@ -7,28 +7,40 @@ import { DeleteProduct, LoadProducts } from "~/app/domain/usecases"
 import { BarAction, Breadcrumbs, Link } from "~/app/presentation/components"
 
 type ProductListProps = {
+  initialLoad: LoadProducts.Response;
   loadProducts: LoadProducts;
   deleteProduct: DeleteProduct;
 }
 
-export default function ProductList({ loadProducts, deleteProduct }: ProductListProps) {
+export default function ProductList({
+  initialLoad,
+  loadProducts,
+  deleteProduct
+}: ProductListProps) {
   const [state, setState] = useState({
-    products: [] as LoadProducts.ProductResponse[]
+    products: initialLoad.data?.map(addProductCover)
   })
 
   useEffect(() => {
-    handleRehydrateProducts()
+    const hasProducts = !!state.products.length
+    if (!hasProducts) {
+      handleRehydrateProducts()
+    }
   }, []) // eslint-disable-line
+
+  function addProductCover(product: LoadProducts.ProductResponse) {
+    return {
+      ...product,
+      cover: product?.pictures.find(picture => picture.cover)
+    }
+  }
 
   function handleRehydrateProducts(name?: string) {
     loadProducts
       .loadAll({ name })
       .then(({ data }: LoadProducts.Response) => setState((prevState) => ({
         ...prevState,
-        products: data?.map(product => ({
-          ...product,
-          cover: product?.pictures.find(picture => picture.cover)
-        }))
+        products: data?.map(addProductCover)
       })))
       .catch(console.error)
   }
