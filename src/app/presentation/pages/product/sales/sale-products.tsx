@@ -1,39 +1,42 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { LoadProducts } from "~/app/domain/usecases";
 import { BarAction, Breadcrumbs } from "~/app/presentation/components";
 
-type SaleProductsProps = {
+type SaleProductsProps = LoadProducts.Response & {
   loadProducts: LoadProducts;
 }
 
-export default function SaleProducts({ loadProducts }: SaleProductsProps) {
+export default function SaleProducts({
+  data,
+  loadProducts
+}: SaleProductsProps) {
   const [state, setState] = useState({
-    products: [] as LoadProducts.ProductResponse[]
+    products: data?.map(addNumberFormatAndProductCover)
   })
 
-  useEffect(() => {
-    handleRehydrateProducts()
-  }, []) // eslint-disable-line
+  function addNumberFormatAndProductCover(product: LoadProducts.ProductResponse) {
+    return {
+      ...product,
+      priceFormated: (() => {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        })
+          .format(product?.price || 0)
+      })(),
+      cover: product?.pictures[0]
+    }
+  }
 
   function handleRehydrateProducts(name?: string) {
     loadProducts
       .loadAll({ name })
       .then(({ data }: LoadProducts.Response) => setState((prevState) => ({
         ...prevState,
-        products: data?.map(product => ({
-          ...product,
-          priceFormated: (() => {
-            return new Intl.NumberFormat('pt-BR', {
-              style: 'currency',
-              currency: 'BRL'
-            })
-              .format(product?.price || 0)
-          })(),
-          cover: product?.pictures[0]
-        }))
+        products: data?.map(addNumberFormatAndProductCover)
       })))
       .catch(console.error)
   }
