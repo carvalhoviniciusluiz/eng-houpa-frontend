@@ -1,30 +1,37 @@
-import { makeProductList, ProductListProps } from "~/app/main/factories/pages";
+import { RemoteLoadProducts } from "~/app/application/usecases";
+import { makeProductList } from "~/app/main/factories/pages";
+// import { makeRemoteLoadProducts } from "~/app/main/factories/usecases";
 import { BaseLayout } from "~/app/presentation/layouts";
-import { handleSSRAuth } from "~/pages/_handles/handle-ssr-auth";
+import handleSSRAuth from "~/pages/_handles/handle-ssr-auth";
 
-export default function ProductListPage(props: ProductListProps) {
-  const { initialLoad } = props
+export const getServerSideProps = handleSSRAuth<RemoteLoadProducts.Response>(async (context) => {
+  // const loadProducts = makeRemoteLoadProducts(context)
+
+  // const { data, meta } = await loadProducts.loadAll()
+  // console.log({ data, meta })
+
+  return {
+    props: {
+      data: [] as any,
+      meta: {} as any
+    }
+  }
+})
+
+function ProductListPage(props: RemoteLoadProducts.Response) {
+  const { data, meta } = props
   return (
     <BaseLayout>
-      {makeProductList({ initialLoad })}
+      {
+        makeProductList({
+          initialLoad: {
+            meta,
+            data
+          }
+        })
+      }
     </BaseLayout>
   );
 }
 
-type ProductLoadProps = {
-  initialLoad: {
-    data: [],
-    meta: {}
-  }
-}
-
-export const getServerSideProps = handleSSRAuth<ProductLoadProps>(async () => {
-  return {
-    props: {
-      initialLoad: {
-        data: [],
-        meta: {}
-      }
-    }
-  }
-})
+export default ProductListPage

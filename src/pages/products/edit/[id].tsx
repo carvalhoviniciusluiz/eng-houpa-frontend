@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { makeEditProductForm } from "~/app/main/factories/pages";
 import { BaseLayout } from "~/app/presentation/layouts";
-import { handleSSRAuth } from "~/pages/_handles/handle-ssr-auth";
+import handleSSRAuth from "~/pages/_handles/handle-ssr-auth";
 
 export default function EditProductFormPage() {
   const router = useRouter()

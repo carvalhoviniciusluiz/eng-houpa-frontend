@@ -3,9 +3,9 @@ import { AuthorizeHttpGetClientDecorator } from "~/app/main/decorators";
 import { makeCookieAdapter } from "~/app/main/factories/cache";
 import { makeAxiosHttpClient } from "~/app/main/factories/http";
 
-export const makeAuthorizedHttpGetClientDecorator = (): HttpGetClient => {
+export const makeAuthorizedHttpGetClientDecorator = (context?: any): HttpGetClient => {
   return new AuthorizeHttpGetClientDecorator(
-    makeCookieAdapter(),
-    makeAxiosHttpClient(),
+    makeCookieAdapter(context),
+    makeAxiosHttpClient(context),
   )
 }
