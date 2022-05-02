@@ -1,6 +1,8 @@
 import { AxiosHttpClient } from "~/app/infra/axios-http-client";
-import { makeAxios } from "~/app/main/factories/http";
+import { makeAxiosHttpValidation } from "~/app/main/factories/http";
 
-export const makeAxiosHttpClient = (axiosInstance = makeAxios()): AxiosHttpClient => {
-  return new AxiosHttpClient(axiosInstance)
+export const makeAxiosHttpClient = (): AxiosHttpClient => {
+  return new AxiosHttpClient(
+    makeAxiosHttpValidation().getAxiosInstance()
+  )
 }
