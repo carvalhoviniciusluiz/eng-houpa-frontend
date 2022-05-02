@@ -1,32 +1,24 @@
 import { Box, Typography } from "@mui/material"
 import Image from "next/image"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { DebounceInput } from "react-debounce-input"
 import { MdClose as Close } from 'react-icons/md'
 import { DeleteProduct, LoadProducts } from "~/app/domain/usecases"
 import { BarAction, Breadcrumbs, Link } from "~/app/presentation/components"
 
-type ProductListProps = {
-  initialLoad: LoadProducts.Response;
+type ProductListProps = LoadProducts.Response & {
   loadProducts: LoadProducts;
   deleteProduct: DeleteProduct;
 }
 
 export default function ProductList({
-  initialLoad,
+  data,
   loadProducts,
   deleteProduct
 }: ProductListProps) {
   const [state, setState] = useState({
-    products: initialLoad.data?.map(addProductCover)
+    products: data?.map(addProductCover)
   })
-
-  useEffect(() => {
-    const hasProducts = !!state.products.length
-    if (!hasProducts) {
-      handleRehydrateProducts()
-    }
-  }, []) // eslint-disable-line
 
   function addProductCover(product: LoadProducts.ProductResponse) {
     return {
