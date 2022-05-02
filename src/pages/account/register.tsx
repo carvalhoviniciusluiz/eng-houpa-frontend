@@ -1,7 +1,6 @@
-import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
 import { makeRegister } from "~/app/main/factories/pages";
 import { DefaultLayout } from "~/app/presentation/layouts";
+import { handleSSRGuest } from "~/pages/_handles/handle-ssr-guest";
 
 export default function RegisterPage() {
   return (
@@ -11,20 +10,8 @@ export default function RegisterPage() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = parseCookies(context)
-  const { ['houpa-sales:account']: cookie } = cookies
-
-  if (cookie) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
-  }
-
+export const getServerSideProps = handleSSRGuest(async () => {
   return {
     props: {}
   }
-}
+})

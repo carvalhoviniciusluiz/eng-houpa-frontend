@@ -1,8 +1,7 @@
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
 import { makeEditProductForm } from "~/app/main/factories/pages";
 import { BaseLayout } from "~/app/presentation/layouts";
+import { handleSSRAuth } from "~/pages/_handles/handle-ssr-auth";
 
 export default function EditProductFormPage() {
   const router = useRouter()
@@ -19,20 +18,8 @@ export default function EditProductFormPage() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = parseCookies(context)
-  const { ['houpa-sales:account']: cookie } = cookies
-
-  if (!cookie) {
-    return {
-      redirect: {
-        destination: '/account/login',
-        permanent: false
-      }
-    }
-  }
-
+export const getServerSideProps = handleSSRAuth(async () => {
   return {
     props: {}
   }
-}
+})
