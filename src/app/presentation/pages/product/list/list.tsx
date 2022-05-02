@@ -37,10 +37,14 @@ export default function ProductList({
       .catch(console.error)
   }
 
-  async function handleDestroy(productId: string) {
-    await deleteProduct.delete(productId)
-    state.products.filter(product => product.id !== productId)
-    handleRehydrateProducts()
+  function handleDestroy(productId: string) {
+    deleteProduct.delete(productId)
+      .then(() => {
+        setState((prevState) => ({
+          ...prevState,
+          products: state.products.filter(product => product.id !== productId)
+        }))
+      })
   }
 
   async function handleSearchByName(event: React.ChangeEvent<HTMLInputElement>) {
