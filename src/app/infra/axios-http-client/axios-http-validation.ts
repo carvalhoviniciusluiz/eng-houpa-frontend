@@ -66,7 +66,7 @@ export class AxiosHttpValidation {
       }
 
       if (error.response?.status === 403) {
-        console.log('403 Forbidden'); // user logout
+        this.getStorage.set('houpa-sales:account')
       }
     })
 
