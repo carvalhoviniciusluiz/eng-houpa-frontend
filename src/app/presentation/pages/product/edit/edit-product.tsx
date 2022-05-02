@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { EditProduct, GetProduct } from '~/app/domain/usecases';
+import { EditProduct } from '~/app/domain/usecases';
+import { EditProductProps } from '~/app/main/factories/pages';
 import { BarAction, Breadcrumbs } from '~/app/presentation/components';
 import { FormProduct } from '~/app/presentation/pages/product/components';
 
@@ -14,33 +15,26 @@ type ProductForm = {
   price: number;
 }
 
-type EditProductFormParams = {
-  validation: any;
-  getProduct: GetProduct;
+type EditProductFormParams = EditProductProps & {
   editProduct: EditProduct;
-  productId: string;
+  validation: any;
 }
 
 export default function EditProductForm({
-  validation,
-  getProduct,
+  data,
+  productId,
   editProduct,
-  productId
+  validation
 }: EditProductFormParams) {
   const { control, handleSubmit, formState, setValue } = useForm<ProductForm>(validation);
 
   const router = useRouter();
 
   useEffect(() => {
-    getProduct
-      .get(productId)
-      .then((product: GetProduct.Response) => {
-        setValue('name', product.name)
-        setValue('description', product.description)
-        setValue('ref', product.ref)
-        setValue('price', product.price)
-      })
-      .catch(console.error)
+    setValue('name', data.name)
+    setValue('description', data.description)
+    setValue('ref', data.ref)
+    setValue('price', data.price)
   }, []) // eslint-disable-line
 
   async function onSubmit(params: ProductForm) {

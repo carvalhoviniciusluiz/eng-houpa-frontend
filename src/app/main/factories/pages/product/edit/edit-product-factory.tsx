@@ -1,12 +1,17 @@
+import { GetProduct } from "~/app/domain/usecases"
 import { makeEditProductFormValidation } from "~/app/main/factories/pages"
-import { makeRemoteEditProduct, makeRemoteGetProduct } from "~/app/main/factories/usecases"
+import { makeRemoteEditProduct } from "~/app/main/factories/usecases"
 import { EditProductForm } from "~/app/presentation/pages"
 
-export const makeEditProductForm = (productId: string) => {
+export type EditProductProps = {
+  data: GetProduct.Response
+  productId: string
+}
+
+export const makeEditProductForm = (props: EditProductProps) => {
   return (
     <EditProductForm
-      productId={productId}
-      getProduct={makeRemoteGetProduct()}
+      {...props}
       editProduct={makeRemoteEditProduct()}
       validation={makeEditProductFormValidation()}
     />

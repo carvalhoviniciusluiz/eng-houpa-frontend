@@ -1,25 +1,32 @@
-import { useRouter } from "next/router";
+import { GetProduct } from "~/app/domain/usecases";
 import { makeEditProductForm } from "~/app/main/factories/pages";
+import { makeRemoteGetProduct } from "~/app/main/factories/usecases";
 import { BaseLayout } from "~/app/presentation/layouts";
 import handleSSRAuth from "~/pages/_handles/handle-ssr-auth";
 
-export default function EditProductFormPage() {
-  const router = useRouter()
-  const { id } = router.query
+type EditProductPageProps = {
+  data: GetProduct.Response;
+  productId: string;
+}
 
-  if (!id) {
-    return
+export const getServerSideProps = handleSSRAuth<EditProductPageProps>(async (context) => {
+  const productId = context.query.id as string;
+  const getProduct = makeRemoteGetProduct(context);
+  const httpResponse = await getProduct.get(productId);
+  return {
+    props: {
+      data: httpResponse,
+      productId
+    }
   }
+})
 
+function EditProductFormPage(props: EditProductPageProps) {
   return (
     <BaseLayout>
-      {makeEditProductForm(id as string)}
+      {makeEditProductForm({ ...props })}
     </BaseLayout>
   )
 }
 
-export const getServerSideProps = handleSSRAuth(async () => {
-  return {
-    props: {}
-  }
-})
+export default EditProductFormPage
